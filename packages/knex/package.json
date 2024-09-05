@@ -1,0 +1,37 @@
+{
+  "name": "@nodeweb/knex",
+  "version": "3.1.0-alpha.11",
+  "description": "knex bundled for web",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist/**/*"],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "./config": {
+      "import": "./dist/config.js",
+      "types": "./dist/config.d.ts",
+      "default": "./dist/config.cjs"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup --clean",
+    "prepublishOnly": "npm run build",
+    "format": "biome format --write .",
+    "lint": "biome lint --error-on-warnings .",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@nodeweb/utils": "*",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^20.14.11",
+    "knex": "3.1.0",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.3"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@nodeweb/pg",
+  "version": "8.12.0-alpha.2",
+  "description": "pg bundled for web",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist/**/*"],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "./socket": {
+      "import": "./dist/socket.js",
+      "types": "./dist/socket.d.ts",
+      "default": "./dist/socket.cjs"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup --clean",
+    "prepublishOnly": "npm run build",
+    "format": "biome format --write .",
+    "lint": "biome lint --error-on-warnings .",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@nodeweb/utils": "*",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^20.14.11",
+    "@types/pg": "^8.11.8",
+    "pg": "8.12.0",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.3"
+  }
+}

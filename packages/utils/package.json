@@ -1,0 +1,61 @@
+{
+  "name": "@nodeweb/utils",
+  "version": "0.1.0",
+  "description": "Common utils, polyfills, stubs, and globals for Node-to-web bundling",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist/**/*"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "./esbuild": {
+      "types": "./dist/esbuild.d.ts",
+      "default": "./dist/esbuild.cjs"
+    },
+    "./globals/buffer": {
+      "types": "./dist/globals/buffer.d.ts",
+      "default": "./dist/globals/buffer.cjs"
+    },
+    "./stubs/generic": {
+      "types": "./dist/stubs/generic.d.ts",
+      "default": "./dist/stubs/generic.cjs"
+    },
+    "./polyfills/events": {
+      "types": "./dist/polyfills/events.d.ts",
+      "default": "./dist/polyfills/events.cjs"
+    },
+    "./polyfills/timers": {
+      "types": "./dist/polyfills/timers.d.ts",
+      "default": "./dist/polyfills/timers.cjs"
+    },
+    "./polyfills/util": {
+      "types": "./dist/polyfills/util.d.ts",
+      "default": "./dist/polyfills/util.cjs"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup --clean",
+    "prepublishOnly": "npm run build",
+    "format": "biome format --write .",
+    "lint": "biome lint --error-on-warnings .",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^20.14.11",
+    "@types/pg": "^8.11.8",
+    "assert": "^2.1.0",
+    "buffer": "^6.0.3",
+    "esbuild": "^0.23.1",
+    "eventemitter3": "^5.0.1",
+    "knex": "^3.1.0",
+    "timers-browserify-full": "^0.0.1",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.3",
+    "util": "^0.12.5"
+  }
+}
