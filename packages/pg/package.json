@@ -1,6 +1,6 @@
 {
   "name": "@nodeweb/pg",
-  "version": "8.12.0-alpha.2",
+  "version": "8.12.0-alpha.5",
   "description": "pg bundled for web",
   "license": "MIT",
   "type": "module",

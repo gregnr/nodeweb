@@ -1,4 +1,5 @@
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 interface ReadableStream<R = any> {
-  [Symbol.asyncIterator](): AsyncIterator<R>;
+  values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
+  [Symbol.asyncIterator](options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
 }

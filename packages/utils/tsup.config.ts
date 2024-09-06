@@ -11,8 +11,7 @@ export default defineConfig([
       'src/polyfills/timers.ts',
       'src/polyfills/util.ts',
     ],
-    // CJS only, since we need to support `export = ...`
-    format: ['cjs'],
+    format: ['esm', 'cjs'],
     outDir: 'dist',
     sourcemap: true,
     dts: true,

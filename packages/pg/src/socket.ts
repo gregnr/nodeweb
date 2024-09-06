@@ -38,7 +38,7 @@ export class PassThroughSocket extends EventEmitter {
   }
 
   private async emitData() {
-    for await (const chunk of this.duplex.readable) {
+    for await (const chunk of toAsyncIterator(this.duplex.readable)) {
       this.emit('data', Buffer.from(chunk));
     }
   }
@@ -107,4 +107,57 @@ export class PassThroughSocket extends EventEmitter {
   unref() {
     return this;
   }
+}
+
+/**
+ * Converts a `ReadableStream` to an `AsyncIterator`.
+ *
+ * Note that `ReadableStream` is supposed to implement `AsyncIterable`
+ * already, but this isn't true for all environments today (eg. Safari).
+ *
+ * Use this method as a ponyfill.
+ */
+function toAsyncIterator<R = unknown>(
+  readable: ReadableStream<R>,
+  options?: { preventCancel?: boolean },
+): AsyncIterableIterator<R> {
+  // If the `ReadableStream` implements `[Symbol.asyncIterator]`, use it
+  if (Symbol.asyncIterator in readable) {
+    return readable[Symbol.asyncIterator](options);
+  }
+
+  // Otherwise fallback to a ponyfill
+  const reader = (readable as ReadableStream<R>).getReader();
+  const iterator: AsyncIterableIterator<R> = {
+    async next() {
+      try {
+        const { done, value } = await reader.read();
+        if (done) {
+          reader.releaseLock();
+        }
+        return {
+          done,
+          // biome-ignore lint/style/noNonNullAssertion: <explanation>
+          value: value!,
+        };
+      } catch (e) {
+        reader.releaseLock();
+        throw e;
+      }
+    },
+    async return(value: unknown) {
+      if (!options?.preventCancel) {
+        const cancelPromise = reader.cancel(value);
+        reader.releaseLock();
+        await cancelPromise;
+      } else {
+        reader.releaseLock();
+      }
+      return { done: true, value };
+    },
+    [Symbol.asyncIterator]() {
+      return iterator;
+    },
+  };
+  return iterator;
 }

@@ -8,15 +8,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
       "default": "./dist/index.cjs"
     },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
+      "import": "./dist/esbuild.js",
       "default": "./dist/esbuild.cjs"
     },
     "./globals/buffer": {
       "types": "./dist/globals/buffer.d.ts",
-      "default": "./dist/globals/buffer.cjs"
+      "default": "./dist/globals/buffer.js"
     },
     "./stubs/generic": {
       "types": "./dist/stubs/generic.d.ts",
@@ -35,7 +37,6 @@
       "default": "./dist/polyfills/util.cjs"
     }
   },
-  "sideEffects": false,
   "scripts": {
     "build": "tsup --clean",
     "prepublishOnly": "npm run build",
