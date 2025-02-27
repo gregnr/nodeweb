@@ -20,7 +20,7 @@ export default defineConfig({
       // Stubs
       net: genericStub,
       dns: genericStub,
-      crypto: genericStub,
+      crypto: './src/stubs/crypto.ts',
 
       // Polyfills
       events: eventsPolyfill,
